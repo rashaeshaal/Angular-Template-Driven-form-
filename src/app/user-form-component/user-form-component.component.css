@@ -1,0 +1,15 @@
+/* user-form-component.component.css */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.error {
+    color: red;
+    font-size: 0.875rem;
+}
+
+button[disabled] {
+    background-color: #e0e0e0;
+    cursor: not-allowed;
+}

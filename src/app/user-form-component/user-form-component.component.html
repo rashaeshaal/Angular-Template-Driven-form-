@@ -1,0 +1,163 @@
+<div class="container mx-auto p-6 max-w-lg bg-white shadow-md rounded-lg">
+    <h1 class="text-3xl font-semibold text-center text-gray-700 mb-6">Welcome to the User Form Application</h1>
+
+    <form #userForm="ngForm" (ngSubmit)="onSubmit(userForm)" class="space-y-4">
+       
+        <div>
+            <label for="name">Name:</label>
+            <input 
+                type="text" 
+                name="name" 
+                ngModel 
+                required
+                minlength="3" 
+                #name="ngModel" />
+            <div *ngIf="name.invalid && name.touched" class="error">
+                <p *ngIf="name.errors?.['required']">Name is required.</p>
+                <p *ngIf="name.errors?.['minlength']">Name should be at least 3 characters long.</p>
+            </div>
+        </div>
+
+        <div>
+            <label for="email" class="block text-sm font-medium text-gray-600">Email:</label>
+            <input 
+                type="email" 
+                name="email" 
+                [(ngModel)]="user.email" 
+                #email="ngModel" 
+                required 
+                email 
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500" 
+            />
+            <div *ngIf="email.invalid && email.touched" class="text-red-500 text-xs mt-1">
+                Enter a valid email.
+            </div>
+        </div>
+
+        <div>
+            <label class="inline-flex items-center">
+                <input 
+                    type="checkbox" 
+                    name="terms" 
+                    [(ngModel)]="user.terms" 
+                    #terms="ngModel" 
+                    required 
+                    class="form-checkbox h-4 w-4 text-indigo-600" 
+                />
+                <span class="ml-2 text-sm text-gray-600">I agree to the terms and conditions</span>
+            </label>
+            <div *ngIf="terms.invalid && terms.touched" class="text-red-500 text-xs mt-1">
+                You must agree to the terms.
+            </div>
+        </div>
+
+        <div>
+            <label for="comments" class="block text-sm font-medium text-gray-600">Comments:</label>
+            <textarea 
+                id="comments" 
+                name="comments" 
+                [(ngModel)]="user.comments" 
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                rows="4"></textarea>
+        </div>
+
+        <div>
+            <span class="block text-sm font-medium text-gray-600">Gender:</span>
+            <label class="inline-flex items-center mr-6">
+                <input 
+                    type="radio" 
+                    name="gender" 
+                    value="Male" 
+                    [(ngModel)]="user.gender" 
+                    class="form-radio h-4 w-4 text-indigo-600" 
+                />
+                <span class="ml-2 text-sm text-gray-600">Male</span>
+            </label>
+            <label class="inline-flex items-center mr-6">
+                <input 
+                    type="radio" 
+                    name="gender" 
+                    value="Female" 
+                    [(ngModel)]="user.gender" 
+                    class="form-radio h-4 w-4 text-indigo-600" 
+                />
+                <span class="ml-2 text-sm text-gray-600">Female</span>
+            </label>
+            <label class="inline-flex items-center">
+                <input 
+                    type="radio" 
+                    name="gender" 
+                    value="Other" 
+                    [(ngModel)]="user.gender" 
+                    class="form-radio h-4 w-4 text-indigo-600" 
+                />
+                <span class="ml-2 text-sm text-gray-600">Other</span>
+            </label>
+        </div>
+
+        <div>
+            <label for="skills" class="block text-sm font-medium text-gray-600">Skills:</label>
+            <select 
+                id="skills" 
+                name="skills" 
+                [(ngModel)]="user.skills" 
+                multiple 
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            >
+                <option value="Angular">Angular</option>
+                <option value="JavaScript">JavaScript</option>
+                <option value="HTML">HTML</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="birthdate" class="block text-sm font-medium text-gray-600">Birthdate:</label>
+            <input 
+                type="date" 
+                id="birthdate" 
+                name="birthdate" 
+                [(ngModel)]="user.birthdate" 
+                class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+            />
+        </div>
+
+        <div class="text-center mt-4">
+            <button 
+                type="submit" 
+                [disabled]="userForm.invalid" 
+                class="w-full py-2 px-4 bg-indigo-600 text-white font-semibold rounded-lg shadow-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-opacity-50 disabled:opacity-50"
+            >
+                Submit
+            </button>
+        </div>
+    </form>
+
+    <div class="mt-4 text-center">
+        <!-- <button 
+    type="button" 
+    (click)="setFormValues()" 
+    class="w-full py-2 px-4 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+>
+    Set Default Values
+</button> -->
+        <!-- <button 
+    type="button" 
+    (click)="patchFormValues(userForm)" 
+    class="w-full py-2 px-4 bg-yellow-600 text-white font-semibold rounded-lg shadow-md hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 mt-2"
+>
+    Patch Form Values
+</button> -->
+        <button 
+            type="button" 
+            (click)="resetForm(userForm)" 
+            class="w-full py-2 px-4 bg-red-600 text-white font-semibold rounded-lg shadow-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 mt-2"
+        >
+            Reset Form
+        </button>
+    </div>
+
+    <div *ngIf="submitted" class="mt-6 text-center">
+        <h3 class="text-xl font-semibold text-green-600">Form Submitted Successfully!</h3>
+        <pre class="mt-2 text-left text-gray-700">{{ user | json }}</pre>
+    </div>
+</div>
